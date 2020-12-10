@@ -1,6 +1,7 @@
 """Classes used to represent grains when interfacing with Open3D"""
 from constants import *
 from typedefs import *
+from mesh import Mesh
 
 
 def mm_net_to_inch_net(net: Net):
@@ -14,14 +15,97 @@ def mm_net_to_inch_net(net: Net):
     return [(point[0] * INCHES_PER_MM, point[1] * INCHES_PER_MM) for point in net]
 
 
-class Grain3D:
-    """Represents a 3D grain; used for conversion into Open3D such that a .dxf file is made"""
+def mm_mesh_to_inch_mesh(mesh: Mesh):
+    """
+    Convert a mesh where units of points are millimeters to a mesh where units of points are
+    inches
 
+    :param mesh: a mesh where units of points are millimeters
+    :return: the same mesh scaled to where units of points are inches
+    """
     pass
 
 
+def net_to_mesh(net: Net):
+    """
+    Convert a net to its equivalent mesh representation, defaulting all z values to 0.
+    :param net:
+    :return:
+    """
+
+
+class Grain3D:
+    """Represents a 3D grain.
+    Parametrized such that evolutionary algorithm can more easily generate grains."""
+
+    def __init__(
+        self,
+        outer_diameter: float,
+        length: float,
+        inhibited_ends: InhibitedEnds,
+        mesh: Mesh,
+    ):
+        """
+        Construct a 3D grain from the provided parameters where mesh represents the internal
+        geometry
+        :param outer_diameter: outer diameter of motor
+        :param length: length of the grain
+        :param inhibited_ends: which ends, if any, are inhibited
+        :param mesh: the mesh mapping points to the points they're connected to;
+                     should be non-trivially cyclic (cycle of length > 2) for all vertices
+        :raises ValueError: if distance to any point in net from (0, 0, h) is greater than
+                            outer_diameter / 2, or
+                            if length <= 0, or
+                            if outer_diameter <= 0, or
+                            if the mesh mapping has any points with a z-value less than 0, or
+                            if the mesh mapping has any points with a z-value greater than length
+
+        """
+        # TODO: mesh class: too many preconditions
+        raise NotImplementedError
+
+    # noinspection PyPep8Naming
+    def to_openMotor_grain(self):
+        """
+        Convert this grain to an openMotor grain with corresponding dimensions and geometry
+
+        :return: the resulting openMotor grain
+        """
+        # TODO
+        raise NotImplementedError("Unimplemented!")
+
+    @property
+    def outer_diameter(self) -> float:
+        """
+        :return: the outer diameter of the grain
+        """
+        raise NotImplementedError("Unimplemented!")
+
+    @property
+    def length(self) -> float:
+        """
+        :return: the length of the grain
+        """
+        raise NotImplementedError("Unimplemented!")
+
+    @property
+    def inhibited_ends(self) -> InhibitedEnds:
+        """
+        :return: which ends of the grain are inhibited
+        """
+        raise NotImplementedError("Unimplemented!")
+
+    @property
+    def mesh(self) -> Mesh:
+        """
+        :return: the mesh representing the internal geometry of the grain
+        """
+        raise NotImplementedError("Unimplemented!")
+
+
 class Grain2D:
-    """Represents a 2D grain: constant cross-section through entire length"""
+    """Represents a 2D grain: constant cross-section through entire length.
+    Parametrized such that evolutionary algorithm can more easily generate grains."""
 
     # TODO: once Grain3D is implemented, this could inherit from it
 
@@ -63,7 +147,7 @@ class Grain2D:
         self.__outer: float = outer_diameter
         self.__length: float = length
         self.__inhibited: InhibitedEnds = inhibited_ends
-        self.__net: Net = net
+        self.__net: Net = net.copy()
 
     # noinspection PyPep8Naming
     def to_openMotor_grain(self):

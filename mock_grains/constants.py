@@ -3,7 +3,7 @@ import enum
 
 
 class InhibitedEnds(enum.Enum):
-    """Represents if a grain has inhibited ends"""
+    """Represents the inhibited ends of a grain, if any"""
 
     NEITHER = 0
     TOP = 1
