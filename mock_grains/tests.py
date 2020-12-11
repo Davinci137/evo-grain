@@ -2,8 +2,8 @@
 import unittest
 from typing import Dict, Set
 
-import grains
 import convert_units
+import grains
 import net_to_mesh
 from constants import InhibitedEnds
 from grains import Grain2D, Grain3D

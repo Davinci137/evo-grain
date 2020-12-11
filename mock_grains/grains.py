@@ -7,6 +7,7 @@ from typedefs import *
 
 
 class Grain(metaclass=ABCMeta):
+    """Abstract base class representing the generic grain"""
 
     __slots__ = ["__outer", "__length", "__inhibited"]
 
@@ -30,6 +31,7 @@ class Grain(metaclass=ABCMeta):
         self.__length = length
         self.__inhibited = inhibited_ends
 
+    # noinspection PyPep8Naming
     @abstractmethod
     def to_openMotor_grain(self):
         """
