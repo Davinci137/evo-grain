@@ -2,11 +2,11 @@
 import unittest
 from typing import Dict, Set
 
-import grain
+import grains
 import convert_units
 import net_to_mesh
 from constants import InhibitedEnds
-from grain import Grain2D, Grain3D
+from grains import Grain2D, Grain3D
 from mesh import Mesh
 from typedefs import *
 
@@ -278,7 +278,7 @@ class Grain3DTest(unittest.TestCase):
         raise NotImplementedError
 
     def check_properties(self, exp_od, exp_length, exp_inhibited, exp_mesh):
-        actual = grain.Grain3D(exp_od, exp_length, exp_inhibited, exp_mesh)
+        actual = grains.Grain3D(exp_od, exp_length, exp_inhibited, exp_mesh)
         self.assertEqual(exp_od, actual.outer_diameter)
         self.assertEqual(exp_length, actual.length)
         self.assertEqual(exp_inhibited, actual.inhibited_ends)
