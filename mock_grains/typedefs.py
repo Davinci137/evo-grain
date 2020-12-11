@@ -1,5 +1,5 @@
 """Convenient type aliases for types used elsewhere in mock_grains"""
-from typing import Dict, List, Set, Tuple, TypeVar, Union
+from typing import List, Tuple, TypeVar
 
 Point2D = Tuple[float, float]
 Point3D = Tuple[float, float, float]
