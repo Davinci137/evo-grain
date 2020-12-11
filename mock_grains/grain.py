@@ -39,8 +39,7 @@ def net_to_2D_mesh(net: Net) -> Mesh:
     :return: the equivalent mesh representation to this net
     """
     n = len(net)
-    mapping = {net[i]: {net[i - 1], net[i + 1]} for i in range(n - 1)}
-    mapping[net[n - 1]] = {net[0], net[n - 2]}
+    mapping = {net[i]: {net[i - 1], net[(i + 1) % n]} for i in range(n)}
     return Mesh(mapping)
 
 
