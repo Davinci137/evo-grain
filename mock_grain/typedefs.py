@@ -1,4 +1,4 @@
-"""Convenient type aliases for types used elsewhere in mock_grains"""
+"""Convenient type aliases for types used elsewhere in mock_grain"""
 from typing import List, Tuple, TypeVar
 
 Point2D = Tuple[float, float]

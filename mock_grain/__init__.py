@@ -1,3 +1,5 @@
+"""A module containing methods involving mock grains, used for parametrization in
+evolutionary algorithms."""
 from grains import *
 from convert_units import *
 from net_to_mesh import *

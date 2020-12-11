@@ -1,4 +1,4 @@
-"""Stores constants used elsewhere in mock_grains"""
+"""Stores constants used elsewhere in mock_grain"""
 import enum
 
 

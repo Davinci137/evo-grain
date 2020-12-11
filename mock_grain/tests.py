@@ -1,4 +1,4 @@
-"""Tests for mock_grains module"""
+"""Tests for mock_grain module"""
 import unittest
 from typing import Dict, Set
 

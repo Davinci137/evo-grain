@@ -1,7 +1,7 @@
 """Functions for converting nets and meshes from one unit to another"""
 from constants import INCHES_PER_MM
 from mesh import Mesh
-from mock_grains.typedefs import Net
+from mock_grain.typedefs import Net
 
 
 def mm_net_to_inch_net(net: Net):

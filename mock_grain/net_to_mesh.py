@@ -1,8 +1,8 @@
 """Functions for converting nets to meshes"""
 from typing import Dict, Set
 
-from mock_grains.mesh import Mesh
-from mock_grains.typedefs import Net, Point3D
+from mock_grain.mesh import Mesh
+from mock_grain.typedefs import Net, Point3D
 
 
 # noinspection PyPep8Naming
