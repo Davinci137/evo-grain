@@ -142,23 +142,36 @@ class ConvertNetToMeshTest(unittest.TestCase):
 class ConvertNetTo3DMeshTest(unittest.TestCase):
     def test_convert_net_to_mesh_3D(self):
         exp_length = 5
-        exp = {(1, 0, 0): {(1, 1, 0), (1, 0, 5), (1, -1, 0)},
-               (1, 0, exp_length): {(1, 0, 0), (1, -1, exp_length), (1, 1, exp_length)},
-               (1, 1, 0): {(1, 0, 0), (0, 1, 0), (1, 1, exp_length)},
-               (1, 1, exp_length): {(1, 1, 0), (1, 0, exp_length), (0, 1, exp_length)},
-               (0, 1, 0): {(-1, 1, 0), (1, 1, 0), (0, 1, exp_length)},
-               (0, 1, exp_length): {(0, 1, 0), (-1, 1, exp_length), (1, 1, exp_length)},
-               (-1, 1, 0): {(-1, 0, 0), (0, 1, 0), (-1, 1, exp_length)},
-               (-1, 1, exp_length): {(-1, 1, 0), (0, 1, exp_length), (-1, 0, exp_length)},
-               (-1, 0, 0): {(-1, 1, 0), (-1, 0, exp_length), (-1, -1, 0)},
-               (-1, 0, exp_length): {(-1, 0, 0), (-1, 1, exp_length), (-1, -1, exp_length)},
-               (-1, -1, 0): {(-1, 0, 0), (-1, -1, exp_length), (0, -1, 0)},
-               (-1, -1, exp_length): {(0, -1, exp_length), (-1, 0, exp_length), (-1, -1, 0)},
-               (0, -1, 0): {(0, -1, exp_length), (1, -1, 0), (-1, -1, 0)},
-               (0, -1, exp_length): {(1, -1, exp_length), (-1, -1, exp_length), (0, -1, 0)},
-               (1, -1, 0): {(1, 0, 0), (1, -1, exp_length), (0, -1, 0)},
-               (1, -1, exp_length): {(0, -1, exp_length), (1, 0, exp_length), (1, -1, 0)}
-               }
+        exp = {
+            (1, 0, 0): {(1, 1, 0), (1, 0, 5), (1, -1, 0)},
+            (1, 0, exp_length): {(1, 0, 0), (1, -1, exp_length), (1, 1, exp_length)},
+            (1, 1, 0): {(1, 0, 0), (0, 1, 0), (1, 1, exp_length)},
+            (1, 1, exp_length): {(1, 1, 0), (1, 0, exp_length), (0, 1, exp_length)},
+            (0, 1, 0): {(-1, 1, 0), (1, 1, 0), (0, 1, exp_length)},
+            (0, 1, exp_length): {(0, 1, 0), (-1, 1, exp_length), (1, 1, exp_length)},
+            (-1, 1, 0): {(-1, 0, 0), (0, 1, 0), (-1, 1, exp_length)},
+            (-1, 1, exp_length): {(-1, 1, 0), (0, 1, exp_length), (-1, 0, exp_length)},
+            (-1, 0, 0): {(-1, 1, 0), (-1, 0, exp_length), (-1, -1, 0)},
+            (-1, 0, exp_length): {
+                (-1, 0, 0),
+                (-1, 1, exp_length),
+                (-1, -1, exp_length),
+            },
+            (-1, -1, 0): {(-1, 0, 0), (-1, -1, exp_length), (0, -1, 0)},
+            (-1, -1, exp_length): {
+                (0, -1, exp_length),
+                (-1, 0, exp_length),
+                (-1, -1, 0),
+            },
+            (0, -1, 0): {(0, -1, exp_length), (1, -1, 0), (-1, -1, 0)},
+            (0, -1, exp_length): {
+                (1, -1, exp_length),
+                (-1, -1, exp_length),
+                (0, -1, 0),
+            },
+            (1, -1, 0): {(1, 0, 0), (1, -1, exp_length), (0, -1, 0)},
+            (1, -1, exp_length): {(0, -1, exp_length), (1, 0, exp_length), (1, -1, 0)},
+        }
         self.assertEqual(exp, net_to_mesh.net_to_3D_mesh(SQUARE_NET, exp_length))
 
 

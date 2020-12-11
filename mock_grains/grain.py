@@ -1,5 +1,4 @@
 """Classes used to represent grains when interfacing with Open3D"""
-from typing import Dict, Set
 
 from constants import *
 from mesh import Mesh

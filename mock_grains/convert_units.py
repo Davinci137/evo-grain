@@ -23,7 +23,8 @@ def mm_mesh_to_inch_mesh(mesh: Mesh) -> Mesh:
     :param mesh: a mesh where units of points are millimeters
     :return: the same mesh scaled to where units of points are inches
     """
-    def scale(pt): return tuple(v * INCHES_PER_MM for v in pt)
-    return Mesh(
-        {scale(k): {scale(v) for v in vs} for k, vs in mesh.items()}
-    )
+
+    def scale(pt):
+        return tuple(v * INCHES_PER_MM for v in pt)
+
+    return Mesh({scale(k): {scale(v) for v in vs} for k, vs in mesh.items()})

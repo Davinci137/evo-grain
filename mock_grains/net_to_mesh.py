@@ -5,6 +5,7 @@ from mock_grains.mesh import Mesh
 from mock_grains.typedefs import Net, Point3D
 
 
+# noinspection PyPep8Naming
 def net_to_2D_mesh(net: Net) -> Mesh:
     """
     Convert a net to its equivalent mesh representation, where points are 2D
@@ -17,6 +18,7 @@ def net_to_2D_mesh(net: Net) -> Mesh:
     return Mesh(mapping)
 
 
+# noinspection PyPep8Naming
 def net_to_3D_mesh(net: Net, length: float) -> Mesh:
     """
     Convert a net to its equivalent mesh representation, where points are 3D
