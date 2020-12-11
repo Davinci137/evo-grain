@@ -1,9 +1,10 @@
 """Tests for mock_grains module"""
-import pprint
 import unittest
 from typing import Dict, Set
 
 import grain
+import convert_units
+import net_to_mesh
 from constants import InhibitedEnds
 from grain import Grain2D, Grain3D
 from mesh import Mesh
@@ -84,7 +85,7 @@ class MeshTest(unittest.TestCase):
 class ConvertNetUnitsTest(unittest.TestCase):
     def test_convert_net_units(self):
         expected: Net = [(0, 0), (1 / 25.4, 0), (1 / 25.4, 1 / 25.4)]
-        actual = grain.mm_net_to_inch_net(TRIANGLE_NET)
+        actual = convert_units.mm_net_to_inch_net(TRIANGLE_NET)
         self.assertEqual(len(expected), len(actual))
         for i in range(len(actual)):
             for j in range(2):  # check x and y coordinates
@@ -95,7 +96,7 @@ class ConvertNetUnitsTest(unittest.TestCase):
 class ConvertMeshUnitsTest(unittest.TestCase):
     def test_convert_mesh_units(self):
         init = _tri_prism_mesh_map(5)
-        actual = grain.mm_mesh_to_inch_mesh(Mesh(init))
+        actual = convert_units.mm_mesh_to_inch_mesh(Mesh(init))
 
         def scale_point(point, factor):
             return tuple(val * factor for val in point)
@@ -135,7 +136,7 @@ class ConvertNetToMeshTest(unittest.TestCase):
             (0, -1): {(-1, -1), (1, -1)},
             (1, -1): {(0, -1), (1, 0)},
         }
-        self.assertEqual(exp, grain.net_to_2D_mesh(SQUARE_NET))
+        self.assertEqual(exp, net_to_mesh.net_to_2D_mesh(SQUARE_NET))
 
 
 class ConvertNetTo3DMeshTest(unittest.TestCase):
@@ -158,7 +159,7 @@ class ConvertNetTo3DMeshTest(unittest.TestCase):
                (1, -1, 0): {(1, 0, 0), (1, -1, exp_length), (0, -1, 0)},
                (1, -1, exp_length): {(0, -1, exp_length), (1, 0, exp_length), (1, -1, 0)}
                }
-        self.assertEqual(exp, grain.net_to_3D_mesh(SQUARE_NET, exp_length))
+        self.assertEqual(exp, net_to_mesh.net_to_3D_mesh(SQUARE_NET, exp_length))
 
 
 class Grain2DTest(unittest.TestCase):
@@ -221,7 +222,7 @@ class Grain3DTest(unittest.TestCase):
         exp_od = 4
         exp_length = 5
         exp_inhibited = InhibitedEnds.TOP
-        exp_mesh: Mesh = grain.net_to_3D_mesh(SQUARE_NET, exp_length)
+        exp_mesh: Mesh = net_to_mesh.net_to_3D_mesh(SQUARE_NET, exp_length)
         self.check_properties(exp_od, exp_length, exp_inhibited, exp_mesh)
 
     def test_make_invalid_mesh_length(self):  # mesh is invalid for length

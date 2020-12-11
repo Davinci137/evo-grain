@@ -6,54 +6,6 @@ from mesh import Mesh
 from typedefs import *
 
 
-def mm_net_to_inch_net(net: Net):
-    """
-    Convert a net where units of points are millimeters to a net where units of points are
-    inches
-
-    :param net: a net where units of points are millimeters
-    :return: the same net scaled to where units of points are inches
-    """
-    return [(point[0] * INCHES_PER_MM, point[1] * INCHES_PER_MM) for point in net]
-
-
-def mm_mesh_to_inch_mesh(mesh: Mesh) -> Mesh:
-    """
-    Convert a mesh where units of points are millimeters to a mesh where units of points are
-    inches
-
-    :param mesh: a mesh where units of points are millimeters
-    :return: the same mesh scaled to where units of points are inches
-    """
-    def scale(pt): return tuple(v * INCHES_PER_MM for v in pt)
-    return Mesh(
-        {scale(k): {scale(v) for v in vs} for k, vs in mesh.items()}
-    )
-
-
-def net_to_2D_mesh(net: Net) -> Mesh:
-    """
-    Convert a net to its equivalent mesh representation, defaulting all z values to 0
-
-    :param net: net to convert
-    :return: the equivalent mesh representation to this net
-    """
-    n = len(net)
-    mapping = {net[i]: {net[i - 1], net[(i + 1) % n]} for i in range(n)}
-    return Mesh(mapping)
-
-
-def net_to_3D_mesh(net: Net, length: float) -> Mesh:
-    mesh_2d = net_to_2D_mesh(net)
-    mesh_3d_map: Dict[Point3D, Set[Point3D]] = {}
-    for u, adjacent in mesh_2d.items():
-        bottom_u = (u[0], u[1], 0)
-        top_u = (u[0], u[1], length)
-        mesh_3d_map[bottom_u] = {top_u} | {(v[0], v[1], 0) for v in adjacent}
-        mesh_3d_map[top_u] = {bottom_u} | {(v[0], v[1], length) for v in adjacent}
-    return Mesh(mesh_3d_map)
-
-
 class Grain3D:
     """Represents a 3D grain.
     Parametrized such that evolutionary algorithm can more easily generate grains."""
